@@ -9,7 +9,6 @@ public abstract class Robot {
     private final LocalDate registerDate;
 
     public Robot(String name, String manufacturer, int manufacturYear, LocalDate registerDate) {
-//        ValidatorUtils.validateString(name);
         this.name = name;
         this.manufacturer = manufacturer;
         this.manufacturYear = manufacturYear;

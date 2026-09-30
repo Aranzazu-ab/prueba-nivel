@@ -1,22 +1,23 @@
 package prueba;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RobotManager {
-    private final RobotLogger robotsLogged;
+    private final List<Robot> robotsList = new ArrayList<>();
 
-    public RobotManager(RobotLogger robotsLogged) {
-        this.robotsLogged = robotsLogged;
+    public void registerRobot(Robot robot){
+        robotsList.add(robot);
     }
 
     public List<String> listAllRobotsDescriptions (){
-        return robotsLogged.stream()
+        return robotsList.stream()
                 .map(Robot::getTechnicalDescription)
                 .toList();
     }
 
     public List<Terrestrial> listTerrestrialWithMoreThanGivenSpeed (double limitSpeed){
-        return robotsLogged.stream()
+        return robotsList.stream()
                 .filter(Terrestrial.class::isInstance)
                 .map(Terrestrial.class::cast)
                 .filter(r-> r.getMaxSpeedKmH() > limitSpeed)
@@ -24,20 +25,15 @@ public class RobotManager {
     }
 
     public List<Robot> listRobotsByManufacturer (String manufacturer){
-        return robotsLogged.stream()
+        return robotsList.stream()
                 .filter(robot -> robot.getManufacturer().equalsIgnoreCase(manufacturer))
                 .toList();
     }
 
-    public void printAnyList (List<?> list){
-        list.forEach(System.out::println);
-    }
-
     public List<ResistanceEvaluable> getEvaluables() {
-        return robotsLogged.stream()
+        return robotsList.stream()
                 .filter(ResistanceEvaluable.class::isInstance)
                 .map(ResistanceEvaluable.class::cast)
                 .toList();
     }
-
 }
